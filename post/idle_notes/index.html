@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>学习逆向以来的闲散笔记 | zyyire</title>
+<meta name="description" content="破碎吧现实，崩裂吧精神，放逐这个世界！">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zyyiszyy.github.io/favicon.ico?v=1615126320763">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zyyiszyy.github.io/styles/main.css">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://zyyiszyy.github.io">
+        <img class="avatar" src="https://zyyiszyy.github.io/images/avatar.png?v=1615126320763" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://zyyiszyy.github.io">
+        <h1 class="site-title">zyyire</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="/" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="menu purple-link">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+            <div class="feature-container" style="background-image: url('https://zyyiszyy.github.io/post-images/idle_notes.webp')">
+            </div>
+          
+          <h2 class="post-title">学习逆向以来的闲散笔记</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2021-03-07</span>
+            
+          </div>
+          <div class="post-content">
+            <h3 id="dns刷新">dns刷新：</h3>
+<pre><code>ipconfig /flushdns
+</code></pre>
+<h3 id="z3py约束求解">z3py约束求解：</h3>
+<pre><code>先定义变量：a1=BitVec('a1',32)    a2=Int('a2')      #注意这里的变量类型是z3里的，不是python里的，要转化才可用
+创建约束求解器：solver=Solver()                          #如果有位运算就要bitvec
+添加约束条件：solver.add(a&gt;1)
+判断解是否存在：if solver.check()==sat:   #不存在为unsat
+输出解：print(solver.model())
+取出解的某项的值：solver.model()[a1]
+位变量bitvec转化python整数：solver.model()[a1].as_long()
+约束可以逻辑运算：Or,And,Not
+示例脚本有保存
+</code></pre>
+<h3 id="ropgadget或等rop链">ROPgadget或等rop链：</h3>
+<pre><code>ROPgadget --binary 文件路径 --ropchain
+</code></pre>
+<h3 id="kali的checksec使用">kali的checksec使用：</h3>
+<pre><code>checksec --file=文件路径
+</code></pre>
+<h3 id="ubuntu打开命令行">Ubuntu打开命令行：</h3>
+<pre><code>ctrl+alt+T
+</code></pre>
+<h3 id="gdb的一些命令">gdb的一些命令：</h3>
+<pre><code> r `python -c 'print &quot;A&quot;*'268 + &quot;B&quot;*4+&quot;C&quot;*4`
+p/x $esp          查看esp寄存器的值
+x/x $esp          查看寄存器的值并显示其地址
+</code></pre>
+<h3 id="python2里写中文">python2里写中文：</h3>
+<pre><code>加上：#-*-coding:utf-8-*-
+</code></pre>
+<h3 id="usrbinpython">#!/usr/bin/python</h3>
+<pre><code>脚本语言的第一行，目的就是指出，你想要你的这个文件中的代码用什么可执行程序去运行它。
+</code></pre>
+<h3 id="提示xe6什么的错误">提示'\xe6'什么的错误：</h3>
+<pre><code>脚本前面加：#_*_coding:utf8_*_
+</code></pre>
+<h3 id="查看各个端口和对应使用的进程uid">查看各个端口和对应使用的进程uid：</h3>
+<pre><code>netstat -ano
+</code></pre>
+<h3 id="字符串转字节">字符串转字节：</h3>
+<pre><code>bytes(m,'utf-8')
+str(m,'utf-8')
+from Crypto.Util.number import *
+long_to_bytes(m)
+</code></pre>
+<h3 id="python反编译">python反编译：</h3>
+<pre><code>uncompyle6是一个原生python的跨版本反编译器和fragment反编译器
+uncompyle6 -o babypy.py C:\Users\asus\Desktop\babypy.exe_extracted\babypy.pyc
+</code></pre>
+<h3 id="python编译">python编译：</h3>
+<pre><code>&gt;&gt;&gt; import py_compile
+&gt;&gt;&gt; py_compile.compile(r'/Users/zhangyi/Downloads/md5.py')
+</code></pre>
+<h3 id="kali更改时间">kali更改时间：</h3>
+<pre><code>while true; do date -us &quot;2018-01-01 00:00:00&quot;;done
+</code></pre>
+<h3 id="python相关">python相关：</h3>
+<pre><code>不能直接float变16进制，pwntools的p64里只能放16进制，可以用在线工具或写脚本。
+</code></pre>
+<h3 id="python写字符串依次遍历">python写字符串依次遍历：</h3>
+<pre><code>a=‘ada’，b='',for i in range(len(a)):****
+</code></pre>
+<h3 id="竖列变行">竖列变行：</h3>
+<pre><code>选择abc所在的三行，按Ctrl+H（编辑菜单，替换），将 ^p 替换为 &quot; &quot;。
+</code></pre>
+<h3 id="upx脱壳">upx脱壳：</h3>
+<pre><code>cmd运行upx.exe -d 目标路径
+</code></pre>
+<h3 id="ord是ascii变为数字">ord是ASCII变为数字，</h3>
+<pre><code>chr数字变ASCII字符
+</code></pre>
+<h3 id="jar文件为java可执行文件">.jar文件为java可执行文件：</h3>
+<pre><code>打开jar文件方式：cmd：Java -jar 目标路径
+</code></pre>
+<h3 id="vim各个模式切换">vim各个模式切换：</h3>
+<pre><code>i进入编辑模式，esc退出编辑模式进入一般命令模式，：进入命令行模式。wq！保存并退出。
+</code></pre>
+<h3 id="在kali写c代码">在kali写C代码：</h3>
+<pre><code>建立文本.c文件名。命令：gcc test.c编译，在默认目录里生成a.out文件，运行就是代码运行结果。
+</code></pre>
+<h3 id="随机数注意事项">随机数注意事项：</h3>
+<pre><code>windows和linux环境下相同种子伪随机数生成是不同的。
+</code></pre>
+<h3 id="c保留两位小数输出">C++保留两位小数输出：</h3>
+<pre><code>#include &lt;iomanip&gt;   cout &lt;&lt; &quot;a=&quot; &lt;&lt;fixed&lt;&lt; setprecision(2) &lt;&lt; a &lt;&lt;endl; //输出结果为a=0.20
+</code></pre>
+<h3 id="c排序函数和逆向输出字符串">C++排序函数和逆向输出（字符串）：</h3>
+<pre><code>reverse(remain.begin(),remain.end());
+sort（a,a+n）;
+</code></pre>
+<h3 id="c获取数组的长度">C++获取数组的长度：</h3>
+<pre><code>len=sizeof(a)/sizeof(a[0])；
+</code></pre>
+<h3 id="很多aaabbb有关的密码">很多AAABBB有关的密码：</h3>
+<pre><code>培根密码：5个一组。摩斯密码:  .-  组成
+</code></pre>
+<h3 id="rar块的开头">rar块的开头：</h3>
+<pre><code>文件块0x74
+</code></pre>
+<h3 id="密码种类有很多">密码种类有很多：</h3>
+<pre><code>MD5，base64，培根密码，摩斯密码，栅栏密码(W型和传统型)，
+</code></pre>
+<h3 id="常见文件的文件头">常见文件的文件头：</h3>
+<pre><code>https://blog.csdn.net/weixin_44604541/article/details/110082054
+</code></pre>
+<h3 id="rot13在线解密">Rot13在线解密：</h3>
+<pre><code>https://www.jisuan.mobi/puzzm6z1B1HH6yXW.html
+</code></pre>
+<h3 id="md5在线解密">md5在线解密：</h3>
+<pre><code>https://www.somd5.com/
+</code></pre>
+<h3 id="base64在线解码">base64在线解码：</h3>
+<pre><code>https://www.sojson.com/base64.html
+</code></pre>
+<h3 id="pdf转word">pdf转word：</h3>
+<pre><code>https://app.xunjiepdf.com/pdf2word/
+</code></pre>
+<h3 id="mosi密码">mosi密码：</h3>
+<pre><code>http://moersima.00cha.net/
+</code></pre>
+<h3 id="培根密码">培根密码：</h3>
+<pre><code>http://rumkin.com/tools/cipher/baconian.php
+</code></pre>
+<h3 id="栅栏密码w型">栅栏密码（W型）：</h3>
+<pre><code>http://www.atoolbox.net/Tool.php?Id=777
+</code></pre>
+<h3 id="栅栏密码传统">栅栏密码（传统）：</h3>
+<pre><code>http://www.atoolbox.net/Tool.php?Id=855
+</code></pre>
+
+          </div>
+        </div>
+
+        
+      </div>
+
+      
+
+      <div class="site-footer">
+  <div class="slogan">破碎吧现实，崩裂吧精神，放逐这个世界！</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zyyiszyy.github.io/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+  </body>
+</html>
